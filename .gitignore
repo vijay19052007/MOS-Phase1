@@ -1,0 +1,15 @@
+# Compiled executable and object files
+mos.exe
+*.o
+*.obj
+
+# Generated simulator output
+output.txt
+
+# Debug artifacts
+*.pdb
+*.ilk
+
+# Operating-system clutter
+.DS_Store
+Thumbs.db

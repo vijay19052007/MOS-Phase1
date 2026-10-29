@@ -1,11 +1,18 @@
-
 #include "mos.h"
+#include "analytics.h"
+
 #include <stdio.h>
 #include <string.h>
 
 int main(int argc, char *argv[]) {
-    const char *input_file = argc > 1 ? argv[1] : "input.txt";
-    const char *output_file = argc > 2 ? argv[2] : "output.txt";
+    const char *input_file =
+        argc > 1 ? argv[1] : "input.txt";
+
+    const char *output_file =
+        argc > 2 ? argv[2] : "output.txt";
+
+    const char *report_file =
+        argc > 3 ? argv[3] : "analytics_report.txt";
 
     FILE *in = fopen(input_file, "r");
 
@@ -38,13 +45,17 @@ int main(int argc, char *argv[]) {
     fprintf(out, "GD instructions: %d\n", mos.read_count);
     fprintf(out, "PD instructions: %d\n", mos.write_count);
     fprintf(out, "Instructions   : %d\n", mos.instruction_count);
+    fprintf(out, "Simulation time: %d ticks\n", mos.clock);
     fprintf(out, "=========================================\n");
 
     fclose(in);
     fclose(out);
 
+    analytics_write_report(&mos, report_file);
+
     printf("MOS Phase 1 execution completed.\n");
     printf("Check %s for output.\n", output_file);
+    printf("Check %s for analytics.\n", report_file);
 
     return 0;
 }
